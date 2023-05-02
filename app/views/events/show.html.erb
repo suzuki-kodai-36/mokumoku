@@ -58,6 +58,15 @@
           <div class="d-flex align-items-center gap-3 mb-3">
             <%= image_tag @event.user.decorate.avatar, class: 'rounded-circle avatar-lg' %>
             <%= link_to @event.user.name, user_path(@event.user) %>
+            <% if current_user.present? && current_user != @event.user && current_user.following?(@event.user) %>
+              <%= link_to user_relationships_path(@event.user.id), method: :delete do %>
+                <button type="button" class="btn btn-danger">フォローを外す</button>
+              <% end %>
+            <% elsif current_user.present? && current_user != @event.user %>
+              <%= link_to user_relationships_path(@event.user.id), method: :post do %>
+                <button type="button" class="btn btn-primary">フォローする</button>
+              <% end %>
+            <% end %>
           </div>
           <div class="p-3 bg-light">
             イベント数

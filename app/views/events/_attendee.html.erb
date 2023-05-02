@@ -2,5 +2,14 @@
   <div class="d-flex align-items-center gap-2 mb-3">
     <%= image_tag attendee.decorate.avatar, class: 'rounded-circle avatar-md' %>
     <%= link_to attendee.name, user_path(attendee) %>
+      <% if current_user.present? && current_user != attendee && current_user.following?(attendee) %>
+        <%= link_to user_relationships_path(attendee.id), method: :delete do %>
+          <button type="button" class="btn btn-danger">フォローを外す</button>
+        <% end %>
+      <% elsif current_user.present? && current_user != attendee %>
+        <%= link_to user_relationships_path(attendee.id), method: :post do %>
+          <button type="button" class="btn btn-primary">フォローする</button>
+        <% end %>
+      <% end %>
   </div>
 </li>
