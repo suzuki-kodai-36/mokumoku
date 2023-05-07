@@ -1,7 +1,5 @@
 <h1>プロフィール詳細</h1>
 
-
-
 <% if current_user.present? && current_user != @user && current_user.following?(@user) %>
   <%= link_to user_relationships_path(@user.id), method: :delete do %>
     <button type="button" class="btn btn btn-danger">フォローを外す</button>
