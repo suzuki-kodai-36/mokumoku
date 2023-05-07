@@ -92,7 +92,12 @@ class User < ApplicationRecord
   end
   # フォローを外すときの処理
   def unfollow(user_id)
-    relationships.find_by(followed_id: user_id).destroy
+    relationship = relationships.find_by(followed_id: user_id)
+    if relationship
+      relationship.destroy
+    else
+      raise ActiveRecord::RecordNotFound, "Couldn't find Relationship"
+    end
   end
   # フォローしているか判定
   def following?(user)
