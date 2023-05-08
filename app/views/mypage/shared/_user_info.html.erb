@@ -17,6 +17,9 @@
           </h2>
           <p class="mb-0 d-block"><%= current_user.email %></p>
         </div>
+        <div>
+          <%= link_to current_user.followings.count, user_followings_path(current_user) %> フォロー <%= link_to current_user.followers.count, user_followers_path(current_user)%>フォロワー
+        </div>
       </div>
     </div>
   </div>
